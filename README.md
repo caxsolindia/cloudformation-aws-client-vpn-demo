@@ -11,6 +11,12 @@ Before getting started, you will need an AWS account and an understanding of AWS
 4. Fill in the required parameters for the stack, such as ServerCertificateArn and ClientCertificateArn. \
 5. Wait for the stack creation to complete. This may take several minutes. \
 
+# For ServerCertificateArn and ClientCertificateArn
+here two step to imoort these arn
+1. you can import by manual step 
+   - follow these link for reference :- https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/client-authentication.html#mutual
+2. using ACM service on aws
+
 # VPC Setup
 The VPC includes a public subnet with a NAT Gateway, and a private subnet. The NAT Gateway allows the resources in the private subnet to access the internet.
 
