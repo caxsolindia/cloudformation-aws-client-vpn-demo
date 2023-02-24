@@ -5,11 +5,11 @@ This project sets up a VPC with a VPN client endpoint using AWS CloudFormation. 
 Before getting started, you will need an AWS account and an understanding of AWS CloudFormation.
 
 # Deployment
-Download the CloudFormation template file.
-Open the AWS CloudFormation console.
-Create a new stack, and upload the CloudFormation template file.
-Fill in the required parameters for the stack, such as ServerCertificateArn and ClientCertificateArn.
-Wait for the stack creation to complete. This may take several minutes.
+1.Download the CloudFormation template file.
+2.Open the AWS CloudFormation console.
+3.Create a new stack, and upload the CloudFormation template file.
+4.Fill in the required parameters for the stack, such as ServerCertificateArn and ClientCertificateArn.
+5.Wait for the stack creation to complete. This may take several minutes.
 
 # VPC Setup
 The VPC includes a public subnet with a NAT Gateway, and a private subnet. The NAT Gateway allows the resources in the private subnet to access the internet.
