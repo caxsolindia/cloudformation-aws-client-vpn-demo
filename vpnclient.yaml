@@ -1,0 +1,40 @@
+Parameters:
+  ServerCertificateArn:
+    Type: "String"
+    Description: "The ARN of the server certificate to use."
+  ClientCertificateArn:
+    Type: "String"
+    Description: "The ARN of the client certificate to use."
+
+Resources:
+  VPNEndpoint:
+    Type: "AWS::EC2::ClientVpnEndpoint"
+    Properties:
+      AuthenticationOptions:
+        - Type: "certificate-authentication"
+          MutualAuthentication:
+            ClientRootCertificateChainArn: !Ref ClientCertificateArn
+      ConnectionLogOptions:
+        Enabled: false
+      Description: "My VPN Client Endpoint"
+      ServerCertificateArn: !Ref ServerCertificateArn
+      ClientCidrBlock: "20.0.0.0/16"
+      SplitTunnel: true
+      TransportProtocol: "udp"
+      VpnPort: 443
+      VpcId: !ImportValue VPC
+
+  MyClientVpnTargetNetworkAssociation:
+    Type: "AWS::EC2::ClientVpnTargetNetworkAssociation"
+    Properties:
+      ClientVpnEndpointId: !Ref VPNEndpoint
+      SubnetId: !ImportValue privatesubnetid
+
+  MyClientVpnAuthorizationRule:
+    Type: "AWS::EC2::ClientVpnAuthorizationRule"
+    Properties:
+      ClientVpnEndpointId: !Ref VPNEndpoint
+      AuthorizeAllGroups: true
+      TargetNetworkCidr: "10.0.0.0/16"
+      Description: "Allow access to target network"
+

@@ -1,0 +1,25 @@
+Parameters:
+  ServerCertificateArn:
+    Type: "String"
+    Description: "The ARN of the server certificate to use."
+  ClientCertificateArn:
+    Type: "String"
+    Description: "The ARN of the client certificate to use."
+
+Resources:
+
+  VPCsetupstack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Sub https://vpc-client-endpoint-cf.s3.ap-south-1.amazonaws.com/vpc.yml
+      TimeoutInMinutes: 50
+
+  VPNclientendpointsetupstack:
+    Type: AWS::CloudFormation::Stack
+    DependsOn: VPCsetupstack
+    Properties:
+      TemplateURL: https://vpc-client-endpoint-cf.s3.ap-south-1.amazonaws.com/vpnclient.yaml
+      Parameters:
+        ServerCertificateArn: !Ref ServerCertificateArn
+        ClientCertificateArn: !Ref ClientCertificateArn
+      TimeoutInMinutes: 50
